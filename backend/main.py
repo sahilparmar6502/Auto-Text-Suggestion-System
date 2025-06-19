@@ -3,7 +3,7 @@ from trie import Trie
 from fastapi.middleware.cors import CORSMiddleware
 import requests
 import os
-#import openai  # Install via `pip install openai`
+import openai  # Install via `pip install openai`
 import wikipediaapi
 
 app = FastAPI()
@@ -77,19 +77,19 @@ def get_wikipedia_summary(word):
         return page.summary[:500]  # Return the first 500 characters
     return None  # Return None if the page doesn't exist
 
-# def get_ai_generated_definition(word):
-#     """Generate a definition using OpenAI's GPT model."""
-#     prompt = f"Define the term '{word}' in a simple and clear way."
+def get_ai_generated_definition(word):
+    """Generate a definition using OpenAI's GPT model."""
+    prompt = f"Define the term '{word}' in a simple and clear way."
 
-#     try:
-#         response = openai.ChatCompletion.create(
-#             model="gpt-3.5-turbo",  # Use "gpt-4" for better results
-#             messages=[{"role": "user", "content": prompt}]
-#         )
-#         definition = response["choices"][0]["message"]["content"]
-#         return definition
-#     except Exception as e:
-#         return "AI definition service is currently unavailable."
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Use "gpt-4" for better results
+            messages=[{"role": "user", "content": prompt}]
+        )
+        definition = response["choices"][0]["message"]["content"]
+        return definition
+    except Exception as e:
+        return "AI definition service is currently unavailable."
     
 
 
