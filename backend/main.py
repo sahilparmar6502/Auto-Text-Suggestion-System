@@ -39,6 +39,11 @@ def read_root():
 @app.get("/suggest/")
 def get_suggestions(prefix: str = Query(..., min_length=1, description="Prefix to search for")):
     suggestions = trie.find_words_with_prefix(prefix)
+
+    if len(suggestions) == 0:
+        suggestions = trie.find_closest_match(prefix)
+        suggestions = [word for count,word in suggestions]
+
     return {"prefix": prefix, "suggestions": suggestions}
 
     
